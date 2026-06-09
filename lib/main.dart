@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 
-import 'widgets/confirm_alert.dart';
+import 'widgets/confirm_alert.dart'; 
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp()); // run app
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatelessWidget { // my app
+  const MyApp({super.key}); // my app constructor
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My Notes',
-      home: const NotesPage(),
+  Widget build(BuildContext context) { // build method
+    return MaterialApp( // material app
+      title: 'My Notes', // title of the app
+      home: const NotesPage(), // home page
     );
   }
 }
 
-class NotesPage extends StatefulWidget {
-  const NotesPage({super.key});
+// notes page class extends stateful widget
+class NotesPage extends StatefulWidget { 
+  const NotesPage({super.key}); // notes page constructor
 
   @override
-  State<NotesPage> createState() => _NotesPageState();
+  State<NotesPage> createState() => _NotesPageState(); // create state
 }
 
 class _NotesPageState extends State<NotesPage> {
@@ -35,27 +36,27 @@ class _NotesPageState extends State<NotesPage> {
       message: 'This note will be permanently removed.',
       confirmLabel: 'delete',
     );
-    
+    // if confirmed, set the note to null
     if (confirmed) {
       setState(() => note = null); 
     }
   }
-
-  @override
+// build method to build the notes page
+  @override 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('My Notes')),
-      body: Padding(
+    return Scaffold( // scaffold widget to display the notes page
+      appBar: AppBar(title: const Text('My Notes')), // app bar widget to display the title of the notes page
+      body: Padding( // padding widget to display the notes page
         padding: const EdgeInsets.all(24),
-        child: note == null
-            ? const Center(child: Text('No notes yet.'))
-            : Card(
-                child: ListTile(
-                  title: Text(note!),
-                  trailing: IconButton(
+        child: note == null // if note is null, display the text 'No notes yet.'
+            ? const Center(child: Text('No notes yet.')) // center widget to display the text 'No notes yet.'
+            : Card( // card widget to display the note
+                child: ListTile( // list tile widget to display the note
+                  title: Text(note!), // text widget to display the note
+                  trailing: IconButton( // icon button widget to display the delete icon
                     icon: const Icon(Icons.delete_outline),
-                    onPressed: _deleteNote,
-                  ),
+                    onPressed: _deleteNote, // on pressed
+                  ), // icon button widget to display the delete icon 
                 ),
               ),
       ),

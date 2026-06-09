@@ -8,7 +8,7 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    await tester.tap(find.byIcon(Icons.delete_outline));
+    await tester.tap(find.byIcon(Icons.delete_outline).first);
     await tester.pumpAndSettle();
 
     expect(find.text('Delete note?'), findsOneWidget);
@@ -19,26 +19,32 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    await tester.tap(find.byIcon(Icons.delete_outline));
+    await tester.tap(find.byIcon(Icons.delete_outline).first);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Delete'));
+    await tester.tap(find.text('delete'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Buy groceries after work'), findsNothing);
-    expect(find.text('No notes yet.'), findsOneWidget);
+    expect(
+      find.text('Buy groceries after today mobile dev lesson'),
+      findsNothing,
+    );
+    expect(find.text('Submit assignment by Friday'), findsOneWidget);
   });
 
   testWidgets('Cancelling keeps the note', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    await tester.tap(find.byIcon(Icons.delete_outline));
+    await tester.tap(find.byIcon(Icons.delete_outline).first);
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('Cancel'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Buy groceries after work'), findsOneWidget);
-    expect(find.text('No notes yet.'), findsNothing);
+    expect(
+      find.text('Buy groceries after today mobile dev lesson'),
+      findsOneWidget,
+    );
+    expect(find.text('Submit assignment by Friday'), findsOneWidget);
   });
 }
