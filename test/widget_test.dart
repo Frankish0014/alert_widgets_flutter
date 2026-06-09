@@ -1,43 +1,44 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:alert_widgets_flutter/main.dart';
 
 void main() {
-  testWidgets('Shows confirmation popup when delete is tapped',
+  testWidgets('Shows confirmation before deleting a note',
       (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    await tester.tap(find.text('Delete Item'));
+    await tester.tap(find.byIcon(Icons.delete_outline));
     await tester.pumpAndSettle();
 
-    expect(find.text('Delete item?'), findsOneWidget);
-    expect(
-      find.text('Are you sure you want to delete this item? This cannot be undone.'),
-      findsOneWidget,
-    );
+    expect(find.text('Delete note?'), findsOneWidget);
+    expect(find.text('This note will be permanently removed.'), findsOneWidget);
   });
 
-  testWidgets('Confirm proceeds with the action', (WidgetTester tester) async {
+  testWidgets('Deleting a note removes it from the list',
+      (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    await tester.tap(find.text('Delete Item'));
+    await tester.tap(find.byIcon(Icons.delete_outline));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Confirm'));
+    await tester.tap(find.text('Delete'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Item deleted.'), findsOneWidget);
+    expect(find.text('Buy groceries after work'), findsNothing);
+    expect(find.text('No notes yet.'), findsOneWidget);
   });
 
-  testWidgets('Cancel stops the action', (WidgetTester tester) async {
+  testWidgets('Cancelling keeps the note', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    await tester.tap(find.text('Delete Item'));
+    await tester.tap(find.byIcon(Icons.delete_outline));
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('Cancel'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Action cancelled.'), findsOneWidget);
+    expect(find.text('Buy groceries after work'), findsOneWidget);
+    expect(find.text('No notes yet.'), findsNothing);
   });
 }
