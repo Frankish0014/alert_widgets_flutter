@@ -9,7 +9,6 @@ Run Instructions
 1. Prerequisites: [Flutter SDK](https://docs.flutter.dev/get-started/install) installed and on your `PATH`.
 2. Clone this repository and open the project folder.
 3. Install dependencies to use, is;
-
    ```bash 
    flutter pub get
    ```
@@ -19,8 +18,6 @@ Run Instructions
     flutter run 
     ``` 
 5. Tap the trash icon on a note to open the confirm alert. You can always Choose 'Cancel' to keep the note or 'delete' to remove it.
-
-
 The now, to run tests; Use the following ways.
     
     ```bash
